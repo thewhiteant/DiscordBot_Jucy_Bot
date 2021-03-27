@@ -177,6 +177,16 @@ async def p(ctx, x):
 @client.command()
 async def dp(ctx, user: discord.User):
     await ctx.send(user.avatar_url)
+
+
+
+
+@client.command()
+async def delt(ctx,limi):
+    try:
+        await ctx.channel.purge(limit=limi)
+    except:
+        await ctx.send("Not Possible")
 # @client.command()
 # async def music(ctx):
 #     # channel = ctx.author.voice.channel
