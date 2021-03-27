@@ -183,10 +183,9 @@ async def dp(ctx, user: discord.User):
 
 @client.command()
 async def delt(ctx,rang):
-    try:
-        await ctx.channel.purge(limit=int(rang))
-    except:
-        await ctx.send("Not Possible")
+        rang = int(rang)
+        await ctx.channel.purge(limit=rang)
+
 # @client.command()
 # async def music(ctx):
 #     # channel = ctx.author.voice.channel
