@@ -182,9 +182,9 @@ async def dp(ctx, user: discord.User):
 
 
 @client.command()
-async def delt(ctx,limi):
+async def delt(ctx,rang):
     try:
-        await ctx.channel.purge(limit=limi)
+        await ctx.channel.purge(limit=int(rang))
     except:
         await ctx.send("Not Possible")
 # @client.command()
