@@ -59,6 +59,7 @@ async def on_voice_state_update(member, before, after):
                for i in va:
                     channel = discord.utils.get(guild.voice_channels, name=i)
                     if len(channel.members) == 0:
+                       va.remove(i)
                        await channel.delete()
 
 
