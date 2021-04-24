@@ -50,11 +50,15 @@ async def on_voice_state_update(member, before, after):
     if str(after.channel) == 'Jucy Click To VC':
          if str(after) != str(before):
              if member.name != str(before.channel):
-                va.append(f"{member.name}")
-                await after.channel.clone(name=member.name)
                 channel = discord.utils.get(guild.voice_channels, name=member.name)
-                await member.move_to(channel)
-
+                if channel == None:
+                    va.append(f"{member.name}")
+                    await after.channel.clone(name=member.name)
+                    channel = discord.utils.get(guild.voice_channels, name=member.name)
+                    await member.move_to(channel)
+                else:
+                    channel = discord.utils.get(guild.voice_channels, name=member.name)
+                    await member.move_to(channel)
     elif after.channel is None:
           if len(va) != 0:
                for i in va:
