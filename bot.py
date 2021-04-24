@@ -43,6 +43,30 @@ async def on_ready():
     await client.change_presence(status=discord.Status.do_not_disturb, activity=activity)
 
 
+va = []
+@client.event
+async def on_voice_state_update(member, before, after):
+    guild = member.guild
+    if str(after.channel) == 'Jucy get vc':
+         if str(after) != str(before):
+            va.append(f"{member.name}")
+            await after.channel.clone(name=member.name)
+            channel = discord.utils.get(guild.voice_channels, name=member.name)
+            await member.move_to(channel)
+
+     elif after.channel is None:
+          if len(va) != 0:
+               for i in va:
+                    channel = discord.utils.get(guild.voice_channels, name=i)
+                    if len(channel.members) == 0:
+                       await channel.delete()
+
+
+
+
+
+
+
 @client.command()
 async def help(ctx):
     embed = discord.Embed(title=ctx.author.name, description="You Got This!",
