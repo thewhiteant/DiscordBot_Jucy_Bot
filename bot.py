@@ -54,7 +54,7 @@ async def on_voice_state_update(member, before, after):
             channel = discord.utils.get(guild.voice_channels, name=member.name)
             await member.move_to(channel)
 
-     elif after.channel is None:
+    elif after.channel is None:
           if len(va) != 0:
                for i in va:
                     channel = discord.utils.get(guild.voice_channels, name=i)
