@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 import random
 import datetime
+import time
 
 
 x = datetime.datetime.now()
@@ -42,6 +43,16 @@ async def on_ready():
     activity = discord.Activity(name=" Jucy man 69 💦", type=1)  #
     await client.change_presence(status=discord.Status.do_not_disturb, activity=activity)
 
+
+@client.event
+async def on_member_join(member):
+    await member.send("> **Wait** `6.333333333330123 `**s to :unlock: UnloCke All VC to unlock everything**")
+
+
+
+
+
+
 #for temp vc
 va = []
 @client.event
@@ -66,17 +77,17 @@ async def on_voice_state_update(member, before, after):
                     if len(channel.members) == 0:
                        va.remove(i)
                        await channel.delete()
+    
+    if str(after.channel) == '🔓UnloCke All':
+        
+        time.sleep(4)
+        role = discord.utils.get(member.guild.roles, name="Member")
+        await member.add_roles(role)
 
 
-@client.event
-async def on_member_join(member):
-     pass
-    # guild = client.get_guild()
-    # channel = guild.get_channel()
-    # await member.send("Human Verification waiting-for-role vc 10s")
 
 
-@client.event
+
 async def on_member_remove(member):
     await member.send(f"> **Tata Bye Bye See You Alvida Sayonarah**")
     
