@@ -47,7 +47,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    await member.send("> **Wait** `6.333333333330123 `**s to :unlock: UnloCke All VC to unlock everything**")
+    await member.send("> **Wait** `4.25 `**s to :unlock: UnloCke All VC to unlock everything**")
 
 
 
