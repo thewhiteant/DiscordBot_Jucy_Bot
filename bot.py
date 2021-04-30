@@ -93,20 +93,21 @@ async def on_voice_state_update(member, before, after):
 @client.event
 async def on_raw_reaction_add(payload):
 
-    with open("rtr.json") as react_file:
+    if payload.channel_id == 837456234894196776:
+        with open("rtr.json") as react_file:
 
-        data = json.load(react_file)
-        for x in data:
-             if x["emoji"] == payload.emoji.name and x["message_id"] == payload.message_id:
-                    await payload.member.send("https://discord.gg/TRGzSqvuek")
-                    channel = client.get_channel(payload.channel_id)
-                    message = await channel.fetch_message(x["message_id"])
-                    await message.remove_reaction(x["emoji"], payload.member)
+            data = json.load(react_file)
+            for x in data:
+                if x["emoji"] == payload.emoji.name and x["message_id"] == payload.message_id:
+                        await payload.member.send("https://discord.gg/TRGzSqvuek")
+                        channel = client.get_channel(payload.channel_id)
+                        message = await channel.fetch_message(x["message_id"])
+                        await message.remove_reaction(x["emoji"], payload.member)
 
-             elif x["emoji"] != payload.emoji.name and x["message_id"] != payload.message_id:
-                    channel = client.get_channel(payload.channel_id)
-                    message = await channel.fetch_message(payload.message_id)
-                    await message.remove_reaction(payload.emoji, payload.member)
+                elif x["emoji"] != payload.emoji.name and x["message_id"] != payload.message_id:
+                        channel = client.get_channel(payload.channel_id)
+                        message = await channel.fetch_message(payload.message_id)
+                        await message.remove_reaction(payload.emoji, payload.member)
 
 
 @client.command()
