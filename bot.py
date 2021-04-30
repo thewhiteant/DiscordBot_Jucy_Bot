@@ -4,6 +4,7 @@ from discord.ext import commands
 import random
 import datetime
 import time
+import json
 
 
 x = datetime.datetime.now()
@@ -89,12 +90,44 @@ async def on_voice_state_update(member, before, after):
         await member.add_roles(role)
 
 
+@client.event
+async def on_raw_reaction_add(payload):
+
+    with open("rtr.json") as react_file:
+
+        data = json.load(react_file)
+        for x in data:
+             if x["emoji"] == payload.emoji.name and x["message_id"] == payload.message_id:
+                    await payload.member.send("https://discord.gg/TRGzSqvuek")
+                    channel = client.get_channel(payload.channel_id)
+                    message = await channel.fetch_message(x["message_id"])
+                    await message.remove_reaction(x["emoji"], payload.member)
+
+             elif x["emoji"] != payload.emoji.name and x["message_id"] != payload.message_id:
+                    channel = client.get_channel(payload.channel_id)
+                    message = await channel.fetch_message(payload.message_id)
+                    await message.remove_reaction(payload.emoji, payload.member)
 
 
+@client.command()
+async def srx(ctx, emoji):
 
+    embed = discord.Embed(title="Invitation Link ", description="React For Invitation Link  :calling:", color=0x80ff00)
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/782847710201774120/782847804459450398/bg.png")
+    embed.set_footer(text="Copyright © White-Ant")
+    await ctx.channel.purge(limit=1)
+    msg = await ctx.send(embed=embed)
+    await msg.add_reaction(emoji)
+    with open("rtr.json") as json_file:
+        data = json.load(json_file)
+        new_react = {
+            "emoji": emoji,
+            "message_id": msg.id
+        }
+        data.append(new_react)
 
-
-
+    with open("rtr.json", "w") as j:
+        json.dump(data, j, indent=4)
 
 
 
@@ -140,8 +173,7 @@ async def ping(ctx):
         embed = discord.Embed(
             title=f"{ping} ms", description="Nice Ping Man!!!", color=0xffb123)
         embed.set_author(name=ctx.author.name,url="https://discord.gg/TRGzSqvuek", icon_url=ctx.author.avatar_url)
-        embed.set_thumbnail(
-            url="https://image.freepik.com/free-vector/smiling-face-emoji_1319-431.jpg")
+        embed.set_thumbnail(url="https://image.freepik.com/free-vector/smiling-face-emoji_1319-431.jpg")
         embed.set_footer(text="Copyright \u00a9 White-Ant")
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
@@ -150,7 +182,7 @@ async def ping(ctx):
 @client.command()  # Invite to your dm
 async def invite(ctx):
    await ctx.author.send("https://discord.gg/TRGzSqvuek")
-   embed = discord.Embed(title=ctx.author.name, description="Invite Already Sent To Your DM 😉", color=0x01d9f1)
+   embed = discord.Embed(title=ctx.author.name, description="Invite Already Sent To Your DM 😉 \n `If Dm are not available, Click Team Jucy on top of this`", color=0x01d9f1)
    embed.set_author(name="Team JUCY", url="https://discord.gg/TRGzSqvuek",icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
    embed.set_thumbnail(url=ctx.author.avatar_url)
    embed.set_footer(text="Copyright \u00a9 White-Ant")
