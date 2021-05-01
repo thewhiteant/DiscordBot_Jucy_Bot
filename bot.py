@@ -47,7 +47,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    await member.send("> **Wait** `4.25 `**s to :unlock: UnloCke All VC to unlock everything**")
+    await member.send("> **Wait** `4.25 `**s to :unlock: UnloCk All VC to unlock everything**")
 
 
 
@@ -83,7 +83,7 @@ async def on_voice_state_update(member, before, after):
                        va.remove(i)
                        await channel.delete()
     
-    if str(after.channel) == '🔓UnloCke All':
+    elif str(after.channel) == '🔓UnloCk All':
         
         time.sleep(4)
         role = discord.utils.get(member.guild.roles, name="Member")
