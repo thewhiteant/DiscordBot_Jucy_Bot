@@ -99,7 +99,7 @@ async def on_raw_reaction_add(payload):
             data = json.load(react_file)
             for x in data:
                 if x["emoji"] == payload.emoji.name and x["message_id"] == payload.message_id:
-                        await payload.member.send("https://discord.gg/TRGzSqvuek")
+                        await payload.member.send("https://discord.gg/3zMrW2uKuy")
                         channel = client.get_channel(payload.channel_id)
                         message = await channel.fetch_message(x["message_id"])
                         await message.remove_reaction(x["emoji"], payload.member)
@@ -136,8 +136,8 @@ async def srx(ctx, emoji):
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(title=ctx.author.name, description="You Got This!",url="https://discord.gg/TRGzSqvuek", color=0x0abacd)
-    embed.set_author(name="  All Commands", url="https://discord.gg/TRGzSqvuek",icon_url="https://media.tenor.com/images/2d04da00ecf31f6065b436094f0b9c95/tenor.gif")
+    embed = discord.Embed(title=ctx.author.name, description="You Got This!",url="https://discord.gg/3zMrW2uKuy", color=0x0abacd)
+    embed.set_author(name="  All Commands", url="https://discord.gg/3zMrW2uKuy",icon_url="https://media.tenor.com/images/2d04da00ecf31f6065b436094f0b9c95/tenor.gif")
     embed.set_image(url="https://cdn.discordapp.com/attachments/782847710201774120/785742282833264640/Ant.gif")
     embed.add_field(name="$ping", value="Test Ping", inline=False)
     embed.add_field(name="$invite", value="Jucy [Invite your friend]", inline=False)
@@ -164,7 +164,7 @@ async def ping(ctx):
         embed = discord.Embed(
             title=f" {ping} ms", description="Ooops!! Little Bit High!", color=0xe40101)
         embed.set_author(name=ctx.author.name,
-                         url="https://discord.gg/TRGzSqvuek", icon_url=ctx.author.avatar_url)
+                         url="https://discord.gg/3zMrW2uKuy", icon_url=ctx.author.avatar_url)
         embed.set_thumbnail(
             url="https://cdn1.vectorstock.com/i/thumb-large/01/85/triangular-red-warning-hazard-symbol-vector-25180185.jpg")
         embed.set_footer(text="Copyright \u00a9 White-Ant")
@@ -173,7 +173,7 @@ async def ping(ctx):
     else:
         embed = discord.Embed(
             title=f"{ping} ms", description="Nice Ping Man!!!", color=0xffb123)
-        embed.set_author(name=ctx.author.name,url="https://discord.gg/TRGzSqvuek", icon_url=ctx.author.avatar_url)
+        embed.set_author(name=ctx.author.name,url="https://discord.gg/3zMrW2uKuy", icon_url=ctx.author.avatar_url)
         embed.set_thumbnail(url="https://image.freepik.com/free-vector/smiling-face-emoji_1319-431.jpg")
         embed.set_footer(text="Copyright \u00a9 White-Ant")
         await ctx.channel.purge(limit=1)
@@ -182,9 +182,9 @@ async def ping(ctx):
 
 @client.command()  # Invite to your dm
 async def invite(ctx):
-   await ctx.author.send("https://discord.gg/TRGzSqvuek")
+   await ctx.author.send("https://discord.gg/3zMrW2uKuy")
    embed = discord.Embed(title=ctx.author.name, description="Invite Already Sent To Your DM 😉 \n `If Dm are not available, Click Team Jucy on top of this`", color=0x01d9f1)
-   embed.set_author(name="Team JUCY", url="https://discord.gg/TRGzSqvuek",icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
+   embed.set_author(name="Team JUCY", url="https://discord.gg/3zMrW2uKuy",icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
    embed.set_thumbnail(url=ctx.author.avatar_url)
    embed.set_footer(text="Copyright \u00a9 White-Ant")
    await ctx.send(embed=embed)
