@@ -93,8 +93,7 @@ async def on_voice_state_update(member, before, after):
 @client.event
 async def on_raw_reaction_add(payload):
 
-    if payload.channel_id == 837456234894196776:
-        with open("rtr.json") as react_file:
+         with open("rtr.json") as react_file:
 
             data = json.load(react_file)
             for x in data:
