@@ -283,5 +283,5 @@ async def delt(ctx, rang):
 #     vc.play(discord.FFmpegPCMAudio(source=f"mx/m5.mp3"), after=lambda e:repeat())
 
 
-BOTT = "Nzc1NDQxMTc3NzY3NDQ0NTUx.X6mX3w.ucn9BDqn3vDdR2Yr7dd6YRo5BgY"
+BOTT = "Nzc1NDQxMTc3NzY3NDQ0NTUx.X6mX3w.NNkXP92UMqD0gDhbh1esVzubYqI"
 client.run(BOTT)
