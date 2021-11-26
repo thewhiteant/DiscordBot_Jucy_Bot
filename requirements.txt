@@ -1,12 +1,3 @@
 discord.py
 discord.py[voice]
-flask
-PyNaCl
-dnspython
-requests
-secure-smtplib
-subprocess.run
 git+https://github.com/Rapptz/discord.py
-ffmpeg
-youtube_dl
-ytdl
