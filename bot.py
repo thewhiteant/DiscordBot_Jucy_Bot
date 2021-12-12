@@ -86,23 +86,23 @@ async def on_voice_state_update(member, before, after):
         await member.add_roles(role)
 
 
-@client.event
-async def on_raw_reaction_add(payload):
+# @client.event
+# async def on_raw_reaction_add(payload):
 
-         with open("rtr.json") as react_file:
+#          with open("rtr.json") as react_file:
 
-            data = json.load(react_file)
-            for x in data:
-                if x["emoji"] == payload.emoji.name and x["message_id"] == payload.message_id:
-                        await payload.member.send("https://discord.gg/3zMrW2uKuy")
-                        channel = client.get_channel(payload.channel_id)
-                        message = await channel.fetch_message(x["message_id"])
-                        await message.remove_reaction(x["emoji"], payload.member)
+#             data = json.load(react_file)
+#             for x in data:
+#                 if x["emoji"] == payload.emoji.name and x["message_id"] == payload.message_id:
+#                         await payload.member.send("https://discord.gg/3zMrW2uKuy")
+#                         channel = client.get_channel(payload.channel_id)
+#                         message = await channel.fetch_message(x["message_id"])
+#                         await message.remove_reaction(x["emoji"], payload.member)
 
-                elif x["emoji"] != payload.emoji.name and x["message_id"] != payload.message_id:
-                        channel = client.get_channel(payload.channel_id)
-                        message = await channel.fetch_message(payload.message_id)
-                        await message.remove_reaction(payload.emoji, payload.member)
+#                 elif x["emoji"] != payload.emoji.name and x["message_id"] != payload.message_id:
+#                         channel = client.get_channel(payload.channel_id)
+#                         message = await channel.fetch_message(payload.message_id)
+#                         await message.remove_reaction(payload.emoji, payload.member)
 
 
 @client.command()
@@ -121,7 +121,6 @@ async def srx(ctx, emoji):
             "message_id": msg.id
         }
         data.append(new_react)
-
     with open("rtr.json", "w") as j:
         json.dump(data, j, indent=4)
 
@@ -186,14 +185,14 @@ async def invite(ctx):
 
 
 
-#dm command
+
 @client.command()
 async def dm(ctx, user: discord.User, *, msg):
     await ctx.channel.purge(limit=1)
     await ctx.send(f"Private DM Sent To {user.name}....")
     await user.send(msg)
 
-#dp
+
 @client.command()
 async def dp(ctx, user: discord.User):
     await ctx.send(user.avatar_url)
