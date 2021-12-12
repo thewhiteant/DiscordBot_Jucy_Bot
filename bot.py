@@ -55,9 +55,6 @@ async def on_member_remove(member):
     await member.send(f"> ** {member.name} Khatam bye bye .. Tata GoodBye Gya **")
 
 
-
-
-#for temp vc
 va = []
 @client.event
 async def on_voice_state_update(member, before, after):
@@ -283,5 +280,7 @@ async def delt(ctx, rang):
 #     vc.play(discord.FFmpegPCMAudio(source=f"mx/m5.mp3"), after=lambda e:repeat())
 
 
-BOTT = "Nzc1NDQxMTc3NzY3NDQ0NTUx.X6mX3w.NNkXP92UMqD0gDhbh1esVzubYqI"
+BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"
 client.run(BOTT)
+
+
