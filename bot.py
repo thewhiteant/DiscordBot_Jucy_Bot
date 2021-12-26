@@ -55,35 +55,35 @@ async def on_member_remove(member):
     await member.send(f"> ** {member.name} Khatam bye bye .. Tata GoodBye Gya **")
 
 
-# va = []
-# @client.event
-# async def on_voice_state_update(member, before, after):
-#     guild = member.guild
-#     if str(after.channel) == 'Jucy Click To VC':
-#          if str(after) != str(before):
-#              if member.name != str(before.channel):
-#                 channel = discord.utils.get(guild.voice_channels, name=member.name)
-#                 if channel == None:
-#                     va.append(f"{member.name}")
-#                     await after.channel.clone(name=member.name)
-#                     channel = discord.utils.get(guild.voice_channels, name=member.name)
-#                     await member.move_to(channel)
-#                 else:
-#                     channel = discord.utils.get(guild.voice_channels, name=member.name)
-#                     await member.move_to(channel)
-#     elif after.channel is None:
-#           if len(va) != 0:
-#                for i in va:
-#                     channel = discord.utils.get(guild.voice_channels, name=i)
-#                     if len(channel.members) == 0:
-#                        va.remove(i)
-#                        await channel.delete()
+va = []
+@client.event
+async def on_voice_state_update(member, before, after):
+    guild = member.guild
+    if str(after.channel) == 'Jucy Click To VC':
+         if str(after) != str(before):
+             if member.name != str(before.channel):
+                channel = discord.utils.get(guild.voice_channels, name=member.name)
+                if channel == None:
+                    va.append(f"{member.name}")
+                    await after.channel.clone(name=member.name)
+                    channel = discord.utils.get(guild.voice_channels, name=member.name)
+                    await member.move_to(channel)
+                else:
+                    channel = discord.utils.get(guild.voice_channels, name=member.name)
+                    await member.move_to(channel)
+    elif after.channel is None:
+          if len(va) != 0:
+               for i in va:
+                    channel = discord.utils.get(guild.voice_channels, name=i)
+                    if len(channel.members) == 0:
+                       va.remove(i)
+                       await channel.delete()
     
-#     elif str(after.channel) == '🔓UnloCk All':
+    # elif str(after.channel) == '🔓UnloCk All':
         
-#         time.sleep(4)
-#         role = discord.utils.get(member.guild.roles, name="Member")
-#         await member.add_roles(role)
+    #     time.sleep(4)
+    #     role = discord.utils.get(member.guild.roles, name="Member")
+    #     await member.add_roles(role)
 
 
 # @client.event
