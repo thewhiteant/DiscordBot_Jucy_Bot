@@ -4,6 +4,11 @@ from discord.ext import commands
 import datetime
 import time
 import json
+from discord.utils import get
+from discord import FFmpegPCMAudio
+from youtube_dl import YoutubeDL
+
+
 
 
 x = datetime.datetime.now()
@@ -279,7 +284,58 @@ async def delt(ctx, rang):
 #     vc.play(discord.FFmpegPCMAudio(source=f"mx/m5.mp3"), after=lambda e:repeat())
 
 
+       # command to play sound from a youtube URL
+@client.command()
+async def play(ctx, *,url):
+    channel = ctx.message.author.voice.channel
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if voice and voice.is_connected():
+        await voice.move_to(channel)
+    else:
+        voice = await channel.connect()
+
+    YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
+    FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+    voice = get(client.voice_clients, guild=ctx.guild)
+    with YoutubeDL(YDL_OPTIONS) as ydl:
+        if url[0:4] == "https":
+            info = ydl.extract_info(url, download=False)
+        else:
+            info = ydl.extract_info(f"ytsearch:{url}", download=False)['entries'][0]
+            URL = info['url']
+            voice.play(FFmpegPCMAudio(URL, executable="ffmpeg.exe", **FFMPEG_OPTIONS))
+            # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
+            voice.is_playing()
+            await ctx.send('Bot is playing')
+
+        # command to resume voice if it is paused
+
+@client.command()
+async def resume(ctx):
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if not voice.is_playing():
+       voice.resume()
+       await ctx.send('Bot is resuming')
+
+        # command to pause voice if it is playing
+
+@client.command()
+async def pause(ctx):
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if voice.is_playing():
+        voice.pause()
+        await ctx.send('Bot has been paused')
+
+        # command to stop voice
+
+@client.command()
+async def stop(ctx):
+    voice = get(client.voice_clients, guild=ctx.guild)
+
+    if voice.is_playing():
+        voice.stop()
+        await ctx.send('Stopping...')
+
+
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"
 client.run(BOTT)
-
-
