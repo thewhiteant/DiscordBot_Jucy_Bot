@@ -303,7 +303,7 @@ async def play(ctx, *,url):
         else:
             info = ydl.extract_info(f"ytsearch:{url}", download=False)['entries'][0]
             URL = info['url']
-            voice.play(FFmpegPCMAudio(URL, executable="ffmpeg.exe", **FFMPEG_OPTIONS))
+            voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
             # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
             voice.is_playing()
             await ctx.send('Bot is playing')
