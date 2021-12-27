@@ -306,7 +306,7 @@ async def play(ctx, *,url):
             voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
             # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
             voice.is_playing()
-            await ctx.send('Bot is playing')
+    await ctx.send(f'Yessss Sirrrr!!! I am playing {url}')
 
         # command to resume voice if it is paused
 
@@ -315,7 +315,7 @@ async def resume(ctx):
     voice = get(client.voice_clients, guild=ctx.guild)
     if not voice.is_playing():
        voice.resume()
-       await ctx.send('Bot is resuming')
+       await ctx.send('Oky Boss!!')
 
         # command to pause voice if it is playing
 
@@ -324,7 +324,7 @@ async def pause(ctx):
     voice = get(client.voice_clients, guild=ctx.guild)
     if voice.is_playing():
         voice.pause()
-        await ctx.send('Bot has been paused')
+        await ctx.send('Ay Ay Captain')
 
         # command to stop voice
 
