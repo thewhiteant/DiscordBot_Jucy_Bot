@@ -83,6 +83,7 @@ async def on_voice_state_update(member, before, after):
                     if len(channel.members) == 0:
                        va.remove(i)
                        await channel.delete()
+          
     
     # elif str(after.channel) == '🔓UnloCk All':
         
@@ -178,15 +179,17 @@ async def ping(ctx):
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
 
+    @client.command()  # Invite to your dm
+    async def invite(ctx):
 
-@client.command()  # Invite to your dm
-async def invite(ctx):
-   await ctx.author.send("https://discord.gg/3zMrW2uKuy")
-   embed = discord.Embed(title=ctx.author.name, description="Invite Already Sent To Your DM 😉 \n `If Dm are not available, Click Team Jucy on top of this`", color=0x01d9f1)
-   embed.set_author(name="Team JUCY", url="https://discord.gg/3zMrW2uKuy",icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
-   embed.set_thumbnail(url=ctx.author.avatar_url)
-   embed.set_footer(text="Copyright \u00a9 White-Ant")
-   await ctx.send(embed=embed)
+        inv = await ctx.channel.create_invite()
+        await ctx.author.send(inv)
+        embed = discord.Embed(
+            title=ctx.author.name, description="Invite Already Sent To Your DM 😉 \n `If Dm are not available, Click Team Jucy on top of this`", color=0x01d9f1)
+        embed.set_author(name="Team JUCY", url=inv,icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
+        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_footer(text="Copyright \u00a9 White-Ant")
+        await ctx.send(embed=embed)
 
 
 
@@ -306,8 +309,18 @@ async def play(ctx, *,url):
             voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
             # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
             voice.is_playing()
-    await ctx.send(f'Yessss Sirrrr!!! I am playing {url}')
-
+    await ctx.send(f'Yessss Sirrrr!!! I am playing :play_pause: **{url}**')
+    if not voice.is_playing():
+        try:
+            def check(m):
+                return m.author == ctx.author and m.channel == ctx.channel
+            message = await client.wait_for('message', timeout=30, check=check)
+            if message.content == "$resume":
+                await resume(ctx)
+        except:
+            channel = ctx.message.author.voice.channel
+            if voice and voice.is_connected():
+                await ctx.voice_client.disconnect()
         # command to resume voice if it is paused
 
 @client.command()
@@ -317,7 +330,7 @@ async def resume(ctx):
        voice.resume()
        await ctx.send('Oky Boss!!')
 
-        # command to pause voice if it is playing
+        # command to pause voice if it is 
 
 @client.command()
 async def pause(ctx):
@@ -326,15 +339,42 @@ async def pause(ctx):
         voice.pause()
         await ctx.send('Ay Ay Captain')
 
+    if not voice.is_playing():
+        try:
+            def check(m):
+                return m.author == ctx.author and m.channel == ctx.channel
+            message = await client.wait_for('message', timeout=30, check=check)
+            if message.content == "$resume":
+                await resume(ctx)
+        except:
+            channel = ctx.message.author.voice.channel
+            if voice and voice.is_connected():
+                await ctx.voice_client.disconnect()
+    
+
         # command to stop voice
+
 
 @client.command()
 async def stop(ctx):
     voice = get(client.voice_clients, guild=ctx.guild)
 
+    def check(m):
+        return m.author == ctx.author and m.channel == ctx.channel
+
     if voice.is_playing():
         voice.stop()
         await ctx.send('Stopping...')
+    
+    if not voice.is_playing():
+        try:
+                message = await client.wait_for('message', timeout=30,check=check)
+                if message.content == "$resume":
+                    await resume(ctx)
+        except:
+                channel = ctx.message.author.voice.channel
+                if voice and voice.is_connected():
+                    await ctx.voice_client.disconnect()
 
 
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"
