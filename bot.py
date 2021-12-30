@@ -422,18 +422,18 @@ async def gv(ctx, url):
                         sys.stdout.flush()
 
 
-    try:
-        Fbdl()
-        await ctx.channel.purge(limit=1)
-        msg = await ctx.send(file=discord.File("Test.mp4"))
-        if os.path.isfile('Test.mp4') == True:
-            os.remove("Test.mp4")
+#  try:
+    Fbdl()
+    await ctx.channel.purge(limit=1)
+    msg = await ctx.send(file=discord.File("Test.mp4"))
+    if os.path.isfile('Test.mp4') == True:
+         os.remove("Test.mp4")
 
-    except:
-        await ctx.send("Video Is not found / Too Large!! 8MB limit")
-        await ctx.send(url)
-        if os.path.isfile('Test.mp4') == True:
-            os.remove("Test.mp4")
+    # except:
+    #     await ctx.send("Video Is not found / Too Large!! 8MB limit")
+    #     await ctx.send(url)
+    #     if os.path.isfile('Test.mp4') == True:
+    #         os.remove("Test.mp4")
         
     
 
