@@ -9,7 +9,6 @@ from youtube_dl import YoutubeDL
 
 import requests
 import os
-import sys
 import urllib.parse
 import re
 

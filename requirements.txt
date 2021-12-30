@@ -3,3 +3,4 @@ youtube_dl
 PyNaCl
 urllib.parse
 urllib
+os
