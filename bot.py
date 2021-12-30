@@ -9,7 +9,7 @@ import requests
 import os
 import urllib.parse
 import re
-
+import sys
 
 
 x = datetime.datetime.now()
@@ -408,21 +408,29 @@ async def gv(ctx, url):
                 if total_length is None:
                         pass
                 else:
-                        dlw = 0
-                        total_length = int(total_length)
-                        for data in response.iter_content(chunk_size=4096):
-                            dlw += len(data)
-                            f.write(data)
+                    dlw = 0
+                    total_length = int(total_length)
+                    for data in response.iter_content(chunk_size=4096):
+                        ges = int(100*dlw/total_length)
+                        dlw += len(data)
+
+                        f.write(data)
+                        done = int(25*dlw/total_length)
+                        sys.stdout.write(f"\r[{'>'*done}{'='*(25-done)}] {ges+1}% ")
+                        sys.stdout.flush()
+
 
     try:
         Fbdl()
         await ctx.channel.purge(limit=1)
-        msg = await ctx.send("Is This The Video U want", file=discord.File("Test.mp4"))
+        msg = await ctx.send(file=discord.File("Test.mp4"))
+
     except:
         await ctx.send("Video Is not found / Too Large!! 8MB limit")
         await ctx.send(url)
+        
+    
     os.remove("Test.mp4")
-
 
 
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"

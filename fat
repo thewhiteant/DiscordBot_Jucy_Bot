@@ -1,0 +1,4 @@
+https://github.com/Crazycatz00/heroku-buildpack-libopus.git
+https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
+https://github.com/julia-otran/heroku-buildpack-ffprobe.git
+
