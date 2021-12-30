@@ -426,13 +426,17 @@ async def gv(ctx, url):
         Fbdl()
         await ctx.channel.purge(limit=1)
         msg = await ctx.send(file=discord.File("Test.mp4"))
+        if os.path.isfile('Test.mp4') == True:
+            os.remove("Test.mp4")
 
     except:
         await ctx.send("Video Is not found / Too Large!! 8MB limit")
         await ctx.send(url)
+        if os.path.isfile('Test.mp4') == True:
+            os.remove("Test.mp4")
         
     
-    os.remove("Test.mp4")
+
 
 
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"
