@@ -54,7 +54,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    await member.send("> **Wait** `4.25 `**s to :unlock: UnloCk All VC to unlock everything**")
+    await member.send("> **Welcome to Team Jucy**")
 
 
 
@@ -88,11 +88,11 @@ async def on_voice_state_update(member, before, after):
                        await channel.delete()
           
     
-    # elif str(after.channel) == '🔓UnloCk All':
+#     elif str(after.channel) == '🔓UnloCk All':
         
-    #     time.sleep(4)
-    #     role = discord.utils.get(member.guild.roles, name="Member")
-    #     await member.add_roles(role)
+#         time.sleep(4)
+#         role = discord.utils.get(member.guild.roles, name="Member")
+#         await member.add_roles(role)
 
 
 # @client.event
@@ -209,10 +209,10 @@ async def dp(ctx, user: discord.User):
     await ctx.send(user.avatar_url)
 
 
-@client.command()
-async def delt(ctx, rang):
-    rang = int(rang)
-    await ctx.channel.purge(limit=rang)
+# @client.command()
+# async def delt(ctx, rang):
+#     rang = int(rang)
+#     await ctx.channel.purge(limit=rang)
 
 
 
@@ -434,10 +434,24 @@ async def stop(ctx):
 #         await ctx.send(url)
 #         if os.path.isfile('Test.mp4') == True:
 #             os.remove("Test.mp4")
-        
-    
+
+
+@client.command()
+async def cl(ctx):
+    channel = ctx.message.author.voice.channel
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if voice and voice.is_connected():
+        await voice.move_to(channel)
+    else:
+        voice = await channel.connect()
+
+    if not voice.is_playing():
+        voice.play(discord.FFmpegPCMAudio(source="test.mp3"))
+        voice.is_playing()
+
 
 
 
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"
 client.run(BOTT)
+
