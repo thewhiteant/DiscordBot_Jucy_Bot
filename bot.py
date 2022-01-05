@@ -35,8 +35,6 @@ delta = f_date - l_date
 
 
 
-
-
 dpLi = []
 dic = []
 
@@ -81,8 +79,8 @@ async def on_voice_state_update(member, before, after):
                     if len(channel.members) == 0:
                        va.remove(i)
                        await channel.delete()
-          
     
+
 
 #join leave
 
@@ -134,7 +132,6 @@ async def help(ctx):
     embed.add_field(name="$pvt ", value="Message Without Trace  [Jucy Role Require]", inline=False)
     embed.add_field(name="Music Bot", value="---------", inline=False)
     embed.add_field(name="$p song_name", value="Search Any Song And Play with bot", inline=True)
-    embed.add_field(name="$sk", value="Skip Song And Play Next Song", inline=True)
     embed.add_field(name="$pos", value="Pause Song", inline=True)
     embed.add_field(name="$res ", value="Resume Song", inline=True)
     embed.add_field(name="$stop ", value="Stop Song", inline=True)
@@ -157,21 +154,12 @@ async def ping(ctx):
         await ctx.channel.purge(limit=1)
         await ctx.send(embed=embed)
     else:
-        embed = discord.Embed(
-            title=f"{ping} ms", description="Nice Ping Man!!!", color=0xffb123)
+        embed = discord.Embed(title=f"{ping} ms", description="Nice Ping Man!!!", color=0xffb123)
         embed.set_author(name=ctx.author.name,url="https://discord.gg/3zMrW2uKuy", icon_url=ctx.author.avatar_url)
         embed.set_thumbnail(url="https://image.freepik.com/free-vector/smiling-face-emoji_1319-431.jpg")
         embed.set_footer(text="Copyright \u00a9 White-Ant")
         await ctx.send(embed=embed)
         
-
-
-# @client.command()
-# async def test(ctx):
-#     await ctx.send("Test Success")
-#     await ctx.invoke(client.get_command('invite'))
-
-
 
 
 
@@ -222,15 +210,13 @@ async def dp(ctx, user: discord.User):
 
 
 
-songs = []
 
        # command to play sound from a youtube URL
 @client.command()
-async def p(ctx, *,url):
-    songs.append(url)
-    url = songs[0]
+async def px(ctx, *,url):
     channel = ctx.message.author.voice.channel
     voice = get(client.voice_clients, guild=ctx.guild)
+     
     if voice and voice.is_connected():
         await voice.move_to(channel)
     else:
@@ -252,20 +238,8 @@ async def p(ctx, *,url):
         await ctx.send(f'Yessss Sirrrr!!! I am playing :play_pause: **{url}**')
         await asyncio.sleep(lenth)
         if not voice.is_playing():
-            await voice.disconnect()
-            songs.clear()
-            
+            await voice.disconnect() 
 
-@client.command()
-async def sk(ctx):
-    if songs:
-            songs.pop(0)
-            voice = get(client.voice_clients, guild=ctx.guild)
-            if voice.is_playing():
-                voice.stop() 
-                await ctx.invoke(client.get_command('plax'), url= songs[0])
-    else:
-        await ctx.send("No Songs Sir!")
 
 @client.command()
 async def res(ctx):
@@ -284,7 +258,7 @@ async def pos(ctx):
         await asyncio.sleep(60)
         if not voice.is_playing():
             await voice.disconnect()
-            songs.clear()
+
 
 
      
@@ -299,7 +273,6 @@ async def stop(ctx):
         await asyncio.sleep(20)
         if not voice.is_playing():
             await voice.disconnect()
-            songs.clear()
 
     
 
@@ -320,11 +293,6 @@ async def cl(ctx):
         await asyncio.sleep(5)
         if not voice.is_playing():
             await voice.disconnect()
-
-
-
-
-
 
 
 
