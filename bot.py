@@ -118,7 +118,7 @@ async def on_ready():
 #help likhle ja ja command ase
     
 @client.command()
-async def helpi(ctx):
+async def help(ctx):
 
     color = []
     for clr in range(0x00000, 0xfffff):
