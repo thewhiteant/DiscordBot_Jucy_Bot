@@ -3,7 +3,7 @@ from asyncio.tasks import sleep
 from datetime import date
 from math import inf
 import discord
-from discord.ext import commands
+from discord.ext import commands ,tasks
 import datetime
 from discord.utils import async_all, get
 from discord import FFmpegPCMAudio
@@ -164,6 +164,28 @@ async def ping(ctx):
 
 
 
+
+
+def quoteCOl():
+    data = requests.get("https://zenquotes.io/api/random")
+    if data.status_code == 200:
+        final = data.json()
+        return final[0]['q'] + " --" + final[0]['a']
+
+
+@client.command()
+async def quote(ctx):
+   await ctx.send(f"> **{quoteCOl()}**")
+
+
+
+
+
+
+
+
+
+
 @commands.has_role("Jucy")
 @client.command(pass_context=True)
 async def pvt(ctx, *, msg):
@@ -208,7 +230,10 @@ async def dp(ctx, user: discord.User):
    msg = await ctx.send(user.avatar_url)
    await msg.add_reaction("❌")
 
-
+@commands.has_role("Jucy")
+@client.command()
+async def delt(ctx, dat):
+        await ctx.channel.purge(limit=dat)
 
 
        # command to play sound from a youtube URL
@@ -296,5 +321,27 @@ async def cl(ctx):
 
 
 
+
+
+
+
+
+
+
+
+
+#time is in 24hr format
+ #channel ID to send images to
+
+
+
+@tasks.loop(hours=24)
+async def time_check():
+    await client.wait_until_ready()
+    message_channel = client.get_channel(id=928508066192850986)
+    await message_channel.send(f"> **{quoteCOl()}**")
+  
+
+time_check.start()
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.w5-iHGAyYq9405Dye3I7LTzS338"
 client.run(BOTT)
