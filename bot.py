@@ -161,9 +161,6 @@ async def ping(ctx):
 
 
 
-
-
-
 def quoteCOl():
     data = requests.get("https://zenquotes.io/api/random")
     if data.status_code == 200:
@@ -231,7 +228,7 @@ async def dp(ctx, user: discord.User):
 @commands.has_role("Jucy")
 @client.command()
 async def delt(ctx, dat):
-        await ctx.channel.purge(limit=dat)
+        await ctx.channel.purge(limit=int(dat))
 
 
        # command to play sound from a youtube URL
