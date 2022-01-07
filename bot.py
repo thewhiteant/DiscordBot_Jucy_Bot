@@ -36,23 +36,6 @@ delta = f_date - l_date
 
 
 
-dpLi = []
-dic = []
-
-@client.event
-async def on_raw_reaction_add(payload):
-    colorx = []
-    for clr in range(0x00000, 0xfffff):
-        colorx.append(clr)
-    if payload.member == client.user:
-        return
-    else:
-        for i in dpLi:
-           index = dpLi.index(i)
-           if payload.emoji.name == "❌":
-                await i.channel.purge(limit=1)
-
-
 
 
 
@@ -223,8 +206,8 @@ async def dm(ctx, user: discord.User, *, msg):
 
 @client.command()
 async def dp(ctx, user: discord.User):
-   msg = await ctx.send(user.avatar_url)
-   await msg.add_reaction("❌")
+   await ctx.send(user.avatar_url)
+
 
 @commands.has_role("Jucy")
 @client.command()
