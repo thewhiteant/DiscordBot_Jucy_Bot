@@ -233,7 +233,7 @@ async def delt(ctx, dat):
 
        # command to play sound from a youtube URL
 @client.command()
-async def px(ctx, *,url):
+async def p(ctx, *,url):
     channel = ctx.message.author.voice.channel
     voice = get(client.voice_clients, guild=ctx.guild)
      
