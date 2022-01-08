@@ -316,5 +316,5 @@ async def time_check():
     await message_channel.send(f"> **{quoteCOl()}**")
 time_check.start()
 
-BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.JndmTJA_TnUixbJFJDWO6cd6DWA"
+BOTT = "OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc"
 client.run(BOTT)
