@@ -299,10 +299,6 @@ async def cl(ctx):
             await voice.disconnect()
 
 
-
-
-
-
 #time is in 24hr format
  #channel ID to send images to
 
@@ -315,6 +311,5 @@ async def time_check():
     await message_channel.purge(limit=1)
     await message_channel.send(f"> **{quoteCOl()}**")
 time_check.start()
-
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.JndmTJA_TnUixbJFJDWO6cd6DWA"
 client.run(BOTT)
