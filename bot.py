@@ -206,6 +206,8 @@ async def dm(ctx, user: discord.User, *, msg):
 
 @client.command()
 async def dp(ctx, user: discord.User):
+    if user == None:
+        user = ctx.author
    await ctx.send(user.avatar_url)
 
 
