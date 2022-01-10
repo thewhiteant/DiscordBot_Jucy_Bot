@@ -9,7 +9,6 @@ import datetime
 from discord.utils import async_all, get
 from discord import FFmpegPCMAudio
 from youtube_dl import YoutubeDL
-
 import requests
 import os
 import urllib.parse
@@ -208,7 +207,7 @@ async def dm(ctx, user: discord.User, *, msg):
 async def dp(ctx, user: discord.User):
     if user == None:
         user = ctx.author
-   await ctx.send(user.avatar_url)
+    await ctx.send(user.avatar_url)
 
 
 @commands.has_role("Jucy")
