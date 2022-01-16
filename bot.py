@@ -219,31 +219,38 @@ async def delt(ctx, dat):
        # command to play sound from a youtube URL
 @client.command()
 async def p(ctx, *,url):
-    channel = ctx.message.author.voice.channel
-    voice = get(client.voice_clients, guild=ctx.guild)
-     
-    if voice and voice.is_connected():
-        await voice.move_to(channel)
-    else:
-        voice = await channel.connect()
 
-    YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
-    FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
-    voice = get(client.voice_clients, guild=ctx.guild)
-    with YoutubeDL(YDL_OPTIONS) as ydl:
-        if url[0:4] == "https":
-            info = ydl.extract_info(url, download=False)
+
+    try:
+            
+
+        channel = ctx.message.author.voice.channel
+        voice = get(client.voice_clients, guild=ctx.guild)
+        
+        if voice and voice.is_connected():
+            await voice.move_to(channel)
         else:
-            info = ydl.extract_info(f"ytsearch:{url}", download=False)['entries'][0]
-        URL = info['url']
-        lenth = info["duration"]
-        voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))  #await voice.disconnect()
-            # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
-        voice.is_playing()
-        await ctx.send(f'Yessss Sirrrr!!! I am playing :play_pause: **{url}**')
-        await asyncio.sleep(lenth)
-        if not voice.is_playing():
-            await voice.disconnect() 
+            voice = await channel.connect()
+
+        YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
+        FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+        voice = get(client.voice_clients, guild=ctx.guild)
+        with YoutubeDL(YDL_OPTIONS) as ydl:
+            if url[0:4] == "https":
+                info = ydl.extract_info(url, download=False)
+            else:
+                info = ydl.extract_info(f"ytsearch:{url}", download=False)['entries'][0]
+            URL = info['url']
+            lenth = info["duration"]
+            voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))  #await voice.disconnect()
+                # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
+            voice.is_playing()
+            await ctx.send(f'Yessss Sirrrr!!! I am playing :play_pause: **{url}**')
+            await asyncio.sleep(lenth)
+            if not voice.is_playing():
+                await voice.disconnect() 
+    except:
+         await ctx.send("Song Is not playable")
 
 
 @client.command()
