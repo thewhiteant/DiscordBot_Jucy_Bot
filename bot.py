@@ -216,41 +216,64 @@ async def delt(ctx, dat):
         await ctx.channel.purge(limit=int(dat))
 
 
-       # command to play sound from a youtube URL
+
+
+url = []
+
 @client.command()
-async def p(ctx, *,url):
+async def p(ctx, *,link):
+
+    channel = ctx.message.author.voice.channel
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if voice and voice.is_connected():
+        await voice.move_to(channel)
+    else:
+        voice = await channel.connect()
+    if link not in url:
+        url.append(link)
+    for i in url:
+        await ctx.send(f"Song: {i}")
 
 
-    try:
-            
-
-        channel = ctx.message.author.voice.channel
-        voice = get(client.voice_clients, guild=ctx.guild)
-        
-        if voice and voice.is_connected():
-            await voice.move_to(channel)
-        else:
-            voice = await channel.connect()
+    if not voice.is_playing():
 
         YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
         voice = get(client.voice_clients, guild=ctx.guild)
         with YoutubeDL(YDL_OPTIONS) as ydl:
-            if url[0:4] == "https":
+            if url[0][0:4] == "https":
                 info = ydl.extract_info(url, download=False)
             else:
-                info = ydl.extract_info(f"ytsearch:{url}", download=False)['entries'][0]
+                info = ydl.extract_info(f"ytsearch:{url[0]}", download=False)['entries'][0]
             URL = info['url']
             lenth = info["duration"]
             voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))  #await voice.disconnect()
-                # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
+                    # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
             voice.is_playing()
-            await ctx.send(f'Yessss Sirrrr!!! I am playing :play_pause: **{url}**')
+
             await asyncio.sleep(lenth)
+            if len(url) != 0:
+                url.pop(0)
+                print("play next")
+                await ctx.invoke(client.get_command('p'), link=url[0])
+                print("work")
             if not voice.is_playing():
                 await voice.disconnect() 
-    except:
-         await ctx.send("Song Is not playable")
+
+
+    # except:
+    #      await ctx.send("Song Is not playable")
+
+
+@client.command()
+async def skip(ctx):
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if  voice.is_playing():
+       voice.pause()
+       url.pop(0)
+       await ctx.invoke(client.get_command('p'), link=url[0])
+
+
 
 
 @client.command()
@@ -308,7 +331,7 @@ async def cl(ctx):
 
 
 #time is in 24hr format
- #channel ID to send images to
+ #channel ID o send images tot
 
 
 
