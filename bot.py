@@ -10,10 +10,9 @@ from discord.utils import async_all, get
 from discord import FFmpegPCMAudio
 from youtube_dl import YoutubeDL
 import requests
-import os
-import urllib.parse
-import re
-import sys
+from bs4 import BeautifulSoup as soup
+import requests
+
 
 
 
@@ -334,6 +333,8 @@ async def cl(ctx):
 #time is in 24hr format
  #channel ID o send images tot
 
+old = []
+
 
 
 @tasks.loop(hours=24)
@@ -342,6 +343,30 @@ async def time_check():
     message_channel = client.get_channel(id=928508066192850986)
     await message_channel.purge(limit=1)
     await message_channel.send(f"> **{quoteCOl()}**")
+
+    gnchnl = client.get_channel(id=940576573659168819)
+    html = requests.get("https://www.pockettactics.com/genshin-impact/codes").text
+    content = soup(html, 'lxml')
+    reddemcode = content.find_all("ul")
+    data = reddemcode[3].find_all("li")[0:-1]
+    for i in data:
+        if i.text not in old:
+                await gnchnl.send(f"`{i.text[0:12]}` **{i.text[13:]}**")
+                old.append(i.text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 time_check.start()
 BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.JndmTJA_TnUixbJFJDWO6cd6DWA"
 client.run(BOTT)
