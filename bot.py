@@ -348,7 +348,7 @@ async def time_check():
     html = requests.get("https://www.pockettactics.com/genshin-impact/codes").text
     content = soup(html, 'lxml')
     reddemcode = content.find_all("ul")
-    data = reddemcode[3].find_all("li")[0:-1]
+    data = reddemcode[3].find_all("li")
     for i in data:
         if i.text not in old:
                 await gnchnl.send(f"`{i.text[0:12]}` **{i.text[13:]}**")

@@ -3,3 +3,4 @@ youtube_dl
 PyNaCl
 requests
 bs4
+lxml
