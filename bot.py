@@ -332,12 +332,9 @@ async def cl(ctx):
 
 #time is in 24hr format
  #channel ID o send images tot
-
 old = []
-
-
-
-@tasks.loop(hours=24)
+# @tasks.loop(hours=24)
+@tasks.loop(hours=1)
 async def time_check():
     await client.wait_until_ready()
     message_channel = client.get_channel(id=928508066192850986)
@@ -348,23 +345,11 @@ async def time_check():
     html = requests.get("https://www.pockettactics.com/genshin-impact/codes").text
     content = soup(html, 'lxml')
     reddemcode = content.find_all("ul")
-    data = reddemcode[3].find_all("li")
+    data = reddemcode[3].find_all("li")[0:-1]
     for i in data:
         if i.text not in old:
                 await gnchnl.send(f"`{i.text[0:12]}` **{i.text[13:]}**")
                 old.append(i.text)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 time_check.start()
