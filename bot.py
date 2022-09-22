@@ -353,5 +353,5 @@ async def time_check():
 
 
 time_check.start()
-BOTT = "OTE5NTc0MDAxMzU1OTg0OTA2.YbXyBg.JndmTJA_TnUixbJFJDWO6cd6DWA"
+BOTT = "#BOTTOKen"
 client.run(BOTT)
