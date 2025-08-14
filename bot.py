@@ -144,7 +144,7 @@ async def ping(ctx):
 
 
 def quoteCOl():
-    data = requests.get("https://zenquotes.io/api/random")
+    data = requests.get("https://zenquotes.io/api/random", timeout=60)
     if data.status_code == 200:
         final = data.json()
         return final[0]['q'] + " --" + final[0]['a']
@@ -342,7 +342,7 @@ async def time_check():
     await message_channel.send(f"> **{quoteCOl()}**")
 
     gnchnl = client.get_channel(id=940576573659168819)
-    html = requests.get("https://www.pockettactics.com/genshin-impact/codes").text
+    html = requests.get("https://www.pockettactics.com/genshin-impact/codes", timeout=60).text
     content = soup(html, 'lxml')
     reddemcode = content.find_all("ul")
     data = reddemcode[3].find_all("li")[0:-1]
